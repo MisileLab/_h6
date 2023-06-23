@@ -1,0 +1,6 @@
+[book]
+authors = ["misilelab"]
+language = "ko"
+multilingual = false
+src = "src"
+title = "AnA and Rust"
