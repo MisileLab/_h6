@@ -217,14 +217,24 @@ edition = &quot;2021&quot;
 <h2 id="cargo를-이용한-컴파일"><a class="header" href="#cargo를-이용한-컴파일">Cargo를 이용한 컴파일</a></h2>
 <pre><code class="language-sh">cargo build # debug mode
 cargo build --release # release mode
+
+
+cargo b # cargo build 줄인거
+cargo b --release
 </code></pre>
 <p>이 컴파일의 결과물은 ./target/{build_target}/{package_name}입니다.</p>
 <h2 id="cargo를-이용한-실행"><a class="header" href="#cargo를-이용한-실행">Cargo를 이용한 실행</a></h2>
 <pre><code class="language-sh">cargo run
 cargo run --release
+
+
+cargo r # cargo run 줄인거
+cargo r --release
 </code></pre>
 <h2 id="컴파일-없이-체크"><a class="header" href="#컴파일-없이-체크">컴파일 없이, 체크</a></h2>
 <pre><code class="language-sh">cargo check
+
+cargo c # cargo check줄인거
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="안전한-변수"><a class="header" href="#안전한-변수">안전한 변수</a></h1>
 <h2 id="변할-수-없는-변수"><a class="header" href="#변할-수-없는-변수">변할 수 없는 변수</a></h2>
@@ -239,7 +249,7 @@ cargo run --release
 <p>JS와 달리 변수에 두 번 할당 할 수 없습니다.<br />
 그 이유는 버그를 줄이기 위해서입니다.</p>
 <h3 id="변할-수-있는-변수"><a class="header" href="#변할-수-있는-변수">변할 수 있는 변수</a></h3>
-<p>변할 수 있는 변수를 위해서는 <code>let</code>을 <code>let mut</code>로 바꾸면 됩니다.</p>
+<p>변할 수 있는(mutable) 변수를 위해서는 <code>let</code>을 <code>let mut</code>로 바꾸면 됩니다.</p>
 <h2 id="컴파일타임에-결정되는-상수"><a class="header" href="#컴파일타임에-결정되는-상수">컴파일타임에 결정되는 상수</a></h2>
 <p>상수는 컴파일타임에 결정되는 특별한 수입니다.<br />
 변할 수 없으며, 런타임에 영향받지 않는 타입을 가져야 합니다.</p>
@@ -247,12 +257,15 @@ cargo run --release
 </code></pre>
 <h2 id="스코프와-재선언"><a class="header" href="#스코프와-재선언">스코프와 재선언</a></h2>
 <p>Rust의 변수는 재선언할 수 있습니다.<br />
-이 때 재선언한 값은 그 스코프 안에서만 유지됩니다.</p>
+이 때 재선언한 값은 그 스코프(코드블럭) 안에서만 유지됩니다.</p>
 <pre><code class="language-rs">let x = 5;
-{
+{ // 스코프 시작
+
     let x = 20;
     // x = 20
-}
+
+} // 스코프 끝
+
 // x = 5
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="러스트는-정적-타입-언어입니다"><a class="header" href="#러스트는-정적-타입-언어입니다">러스트는 정적 타입 언어입니다</a></h1>
@@ -261,13 +274,13 @@ cargo run --release
 예를 들어</p>
 <pre><code class="language-rs">let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
 </code></pre>
-<p>a 변수가 무엇으로 변할지 정의하지 않으면 에러가 나기 때문에, Rust에서는 타입을 이렇게 정의합니다.</p>
+<p>a 변수가 무엇으로 변할지 정의하지 않으면 에러가 나기 때문에, Rust에서는 타입을 이렇게 정의합니다(타입 어노테이션).</p>
 <pre><code class="language-rs">let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
 </code></pre>
 <p>Rust의 타입은 크게 두 가지로 나뉩니다.</p>
 <h2 id="한-개의-값을-가진-스칼라-타입"><a class="header" href="#한-개의-값을-가진-스칼라-타입">한 개의 값을 가진 스칼라 타입</a></h2>
 <h3 id="여러가지의-정수"><a class="header" href="#여러가지의-정수">여러가지의 정수</a></h3>
-<p>정수는 부호가 있는 <code>i</code>와 부호가 없는 <code>u</code>로 나뉩니다.
+<p>정수는 부호가 있는 정수(signed integer) <code>i</code>와 부호가 없는 정수(unsigned integer) <code>u</code>로 나뉩니다.
 <code>i</code>나 <code>u</code>뒤에 비트의 숫자가 붙습니다. 예: 8비트 부호 없는 정수 =&gt; <code>u8</code><br />
 Rust는 <code>8, 16, 32, 64, 128</code>비트를 지원합니다.<br />
 조금 특별해보이는 정수 타입 <code>isize</code>와 <code>usize</code>는 64비트 시스템에선 64비트 정수, 32비트 시스템에선 32비트 정수로 작동합니다.</p>
