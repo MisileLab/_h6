@@ -40,6 +40,10 @@ Cargo.lock은 캐시 파일입니다.
 ```sh
 cargo build # debug mode
 cargo build --release # release mode
+
+
+cargo b # cargo build 줄인거
+cargo b --release
 ```
 
 이 컴파일의 결과물은 ./target/{build_target}/{package_name}입니다.
@@ -49,10 +53,16 @@ cargo build --release # release mode
 ```sh
 cargo run
 cargo run --release
+
+
+cargo r # cargo run 줄인거
+cargo r --release
 ```
 
 ## 컴파일 없이, 체크
 
 ```sh
 cargo check
+
+cargo c # cargo check줄인거
 ```
