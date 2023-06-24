@@ -1,4 +1,4 @@
-# Chapter 1 - Rust 설치는 JS 설치보다 빠릅니다
+# Rust는 JS보다 빠릅니다
 
 ## Linux && MacOS
 

@@ -1,4 +1,4 @@
-# Chapter 2 - 간단한 프로그래밍
+# 간단한 프로그래밍
 
 ## Hello, world
 
