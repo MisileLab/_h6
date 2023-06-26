@@ -15,7 +15,7 @@ rustc main.rs
 ./main # windows is .\main.exe
 ```
 
-## 리버스 엔지니어링
+## 코드 뜯어보기
 
 ```rs
 fn main() {
