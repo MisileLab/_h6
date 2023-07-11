@@ -18,7 +18,7 @@ fn another_func() {
 
 ```rust
 fn main() {
-    another_func(1, "asd");
+    another_func(1, "asd".to_string());
 }
 
 fn another_func(a: usize, b: String) {
@@ -34,8 +34,8 @@ fn main() {
     println!("{}", a);
 }
 
-fn factorial(a: u128): u128 {
-    (1..=num).product()
+fn factorial(a: u128) -> u128 {
+    (1..=a).product()
     // return (1..=num).product();
 }
 ```

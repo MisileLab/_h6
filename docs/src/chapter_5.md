@@ -26,7 +26,7 @@ println!("{}", number);
 while true는 조건을 검사해야 하는 오버헤드가 존재하기 때문에, rust에서는 loop 키워드를 제공합니다.
 
 ```rust
-let a = 20;
+let mut a = 20;
 loop {
     if a == 0 {break;}
     println!("{}", a);
