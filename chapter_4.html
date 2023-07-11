@@ -83,16 +83,38 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html" class="active"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html" class="active"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust는 가비지 콜렉터 없이 메모리를 관리합니다</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -148,11 +170,15 @@
 <p>정적 타입 언어의 의미는 한 변수의 타입은 선언한 후 변경되지 못한다는 의미입니다.<br />
 대부분의 경우에는 컴파일러가 타입을 추론하겠지만, 명시적으로 타입을 지정할 때가 생길 수도 있습니다.<br />
 예를 들어</p>
-<pre><code class="language-rs">let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
+<span class="boring">}</span></code></pre></pre>
 <p>a 변수가 무엇으로 변할지 정의하지 않으면 에러가 나기 때문에, Rust에서는 타입을 이렇게 정의합니다(타입 어노테이션).</p>
-<pre><code class="language-rs">let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
+<span class="boring">}</span></code></pre></pre>
 <p>Rust의 타입은 크게 두 가지로 나뉩니다.</p>
 <h2 id="한-개의-값을-가진-스칼라-타입"><a class="header" href="#한-개의-값을-가진-스칼라-타입">한 개의 값을 가진 스칼라 타입</a></h2>
 <h3 id="여러가지의-정수"><a class="header" href="#여러가지의-정수">여러가지의 정수</a></h3>
@@ -171,9 +197,12 @@ char는 작은 따옴표로 표현하고, String은 큰 따옴표로 표현합�
 <h3 id="고정된-튜플"><a class="header" href="#고정된-튜플">고정된 튜플</a></h3>
 <p>튜플의 크기는 선언할 때의 크기로 고정되어, 늘리거나 줄일 수 없습니다.<br />
 튜플은 unpack과 pack을 지원합니다.</p>
-<pre><code class="language-rs">let a = (1, 2, 3);
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = (1, 2, 3);
 let (b, c, d) = a;
-</code></pre>
+assert_eq!(a, (1, 2, 3));
+<span class="boring">}</span></code></pre></pre>
 <h3 id="가변-길이-배열"><a class="header" href="#가변-길이-배열">가변 길이 배열</a></h3>
 <p>배열은 길이를 늘리거나 줄일 수 있습니다, 하지만 배열의 타입은 모두 같아야 합니다.</p>
 <pre><code class="language-rs">let a = [1, 2, 3, 4, 5];
@@ -187,6 +216,9 @@ let (b, c, d) = a;
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next" href="chapter_4_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -198,6 +230,9 @@ let (b, c, d) = a;
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next" href="chapter_4_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

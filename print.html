@@ -84,16 +84,38 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust는 가비지 콜렉터 없이 메모리를 관리합니다</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -166,10 +188,9 @@ rustup self uninstall
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="간단한-프로그래밍"><a class="header" href="#간단한-프로그래밍">간단한 프로그래밍</a></h1>
 <h2 id="hello-world"><a class="header" href="#hello-world">Hello, world</a></h2>
-<pre><code class="language-rs">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     println!(&quot;Hello, world!&quot;);
-}
-</code></pre>
+}</code></pre></pre>
 <h2 id="컴파일-하는-방법"><a class="header" href="#컴파일-하는-방법">컴파일 하는 방법</a></h2>
 <pre><code class="language-sh">rustc main.rs
 ./main # windows is .\main.exe
@@ -239,13 +260,12 @@ cargo c # cargo check줄인거
 <div style="break-before: page; page-break-before: always;"></div><h1 id="안전한-변수"><a class="header" href="#안전한-변수">안전한 변수</a></h1>
 <h2 id="변할-수-없는-변수"><a class="header" href="#변할-수-없는-변수">변할 수 없는 변수</a></h2>
 <p>Rust의 변수는 모두 unmutable합니다.</p>
-<pre><code class="language-rs">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let x = 5;
     println!(&quot;The value of x is: {x}&quot;);
     x = 6;
     println!(&quot;The value of x is: {x}&quot;);
-}
-</code></pre>
+}</code></pre></pre>
 <p>JS와 달리 변수에 두 번 할당 할 수 없습니다.<br />
 그 이유는 버그를 줄이기 위해서입니다.</p>
 <h3 id="변할-수-있는-변수"><a class="header" href="#변할-수-있는-변수">변할 수 있는 변수</a></h3>
@@ -258,25 +278,33 @@ cargo c # cargo check줄인거
 <h2 id="스코프와-재선언"><a class="header" href="#스코프와-재선언">스코프와 재선언</a></h2>
 <p>Rust의 변수는 재선언할 수 있습니다.<br />
 이 때 재선언한 값은 그 스코프(코드블럭) 안에서만 유지됩니다.</p>
-<pre><code class="language-rs">let x = 5;
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = 5;
 { // 스코프 시작
 
     let x = 20;
+    println!(&quot;The value of x is: {x}&quot;);
     // x = 20
 
 } // 스코프 끝
+println!(&quot;The value of x is: {x}&quot;);
 
 // x = 5
-</code></pre>
+<span class="boring">}</span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="러스트는-정적-타입-언어입니다"><a class="header" href="#러스트는-정적-타입-언어입니다">러스트는 정적 타입 언어입니다</a></h1>
 <p>정적 타입 언어의 의미는 한 변수의 타입은 선언한 후 변경되지 못한다는 의미입니다.<br />
 대부분의 경우에는 컴파일러가 타입을 추론하겠지만, 명시적으로 타입을 지정할 때가 생길 수도 있습니다.<br />
 예를 들어</p>
-<pre><code class="language-rs">let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
+<span class="boring">}</span></code></pre></pre>
 <p>a 변수가 무엇으로 변할지 정의하지 않으면 에러가 나기 때문에, Rust에서는 타입을 이렇게 정의합니다(타입 어노테이션).</p>
-<pre><code class="language-rs">let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
+<span class="boring">}</span></code></pre></pre>
 <p>Rust의 타입은 크게 두 가지로 나뉩니다.</p>
 <h2 id="한-개의-값을-가진-스칼라-타입"><a class="header" href="#한-개의-값을-가진-스칼라-타입">한 개의 값을 가진 스칼라 타입</a></h2>
 <h3 id="여러가지의-정수"><a class="header" href="#여러가지의-정수">여러가지의 정수</a></h3>
@@ -295,13 +323,78 @@ char는 작은 따옴표로 표현하고, String은 큰 따옴표로 표현합�
 <h3 id="고정된-튜플"><a class="header" href="#고정된-튜플">고정된 튜플</a></h3>
 <p>튜플의 크기는 선언할 때의 크기로 고정되어, 늘리거나 줄일 수 없습니다.<br />
 튜플은 unpack과 pack을 지원합니다.</p>
-<pre><code class="language-rs">let a = (1, 2, 3);
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = (1, 2, 3);
 let (b, c, d) = a;
-</code></pre>
+assert_eq!(a, (1, 2, 3));
+<span class="boring">}</span></code></pre></pre>
 <h3 id="가변-길이-배열"><a class="header" href="#가변-길이-배열">가변 길이 배열</a></h3>
 <p>배열은 길이를 늘리거나 줄일 수 있습니다, 하지만 배열의 타입은 모두 같아야 합니다.</p>
 <pre><code class="language-rs">let a = [1, 2, 3, 4, 5];
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="간단한-주석comment-종류"><a class="header" href="#간단한-주석comment-종류">간단한 주석(comment) 종류</a></h1>
+<pre><code class="language-rs">// 한 줄 주석입니다.
+// 러스트에서는 여러 줄 주석이 존재하지 않습니다.
+/// 이 주석은 나중에 배울 docs 주석입니다.
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="if와-반복문"><a class="header" href="#if와-반복문">if와 반복문</a></h1>
+<h2 id="if"><a class="header" href="#if">if</a></h2>
+<p>js와 다르게 조건에 괄호를 쓸 필요 없습니다.<br />
+조건은 무조건 bool이어야 합니다.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 0;
+if a &gt; 0 {println!(&quot;asd&quot;)} else {println!(&quot;132&quot;)}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="let-if"><a class="header" href="#let-if">let if</a></h3>
+<p>let if는 if문의 조건에 따라 변수를 선언합니다.<br />
+이 때 두 결과물 (또는 else if를 사용할 시 여러 개)의 결과물의 타입은 무조건 똑같아야 합니다.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 2;
+let number = if a == 2 {2} else {1};
+println!(&quot;{}&quot;, number);
+<span class="boring">}</span></code></pre></pre>
+<h2 id="no-while-true"><a class="header" href="#no-while-true">no while true</a></h2>
+<p>while true는 조건을 검사해야 하는 오버헤드가 존재하기 때문에, rust에서는 loop 키워드를 제공합니다.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = 20;
+loop {
+    if a == 0 {break;}
+    println!(&quot;{}&quot;, a);
+    a -= 1;
+}
+<span class="boring">}</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust의-특별한-함수"><a class="header" href="#rust의-특별한-함수">Rust의 특별한 함수</a></h1>
+<p>러스트는 함수 키워드로 fn을 사용합니다.</p>
+<h2 id="기본형"><a class="header" href="#기본형">기본형</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    another_func();
+}
+
+fn another_func() {
+    println!(&quot;AnA moment&quot;);
+}</code></pre></pre>
+<h2 id="매개변수를-가진-함수"><a class="header" href="#매개변수를-가진-함수">매개변수를 가진 함수</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    another_func(1, &quot;asd&quot;);
+}
+
+fn another_func(a: usize, b: String) {
+    println!(&quot;{} {}&quot;, a, b);
+}</code></pre></pre>
+<h2 id="반환값을-가진-함수"><a class="header" href="#반환값을-가진-함수">반환값을 가진 함수</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let a = factorial(10);
+    println!(&quot;{}&quot;, a);
+}
+
+fn factorial(a: u128): u128 {
+    (1..=num).product()
+    // return (1..=num).product();
+}</code></pre></pre>
 
                     </main>
 

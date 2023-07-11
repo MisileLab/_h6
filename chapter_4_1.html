@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Rust는 JS보다 빠릅니다 - AnA and Rust</title>
+        <title>간단한 주석 종류 - AnA and Rust</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust는 가비지 콜렉터 없이 메모리를 관리합니다</li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html" class="active"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust는 가비지 콜렉터 없이 메모리를 관리합니다</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -166,32 +166,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="rust는-js보다-빠릅니다"><a class="header" href="#rust는-js보다-빠릅니다">Rust는 JS보다 빠릅니다</a></h1>
-<h2 id="linux--macos"><a class="header" href="#linux--macos">Linux &amp;&amp; MacOS</a></h2>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-</code></pre>
-<p>만약에 링커를 설치할 수 없다는 에러가 뜬다면, 아래의 명령어를 입력해주세요.<br />
-만약 Linux라면 빌드에 필요한 패키지를 설치해주세요. ex) ubuntu라면 <code>build-essentials</code></p>
-<h3 id="macos"><a class="header" href="#macos">MacOS</a></h3>
-<pre><code class="language-sh">xcode-select --install
-</code></pre>
-<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
-<p>Windows는 <a href="https://www.rust-lang.org/tools/install">이 링크</a>를 참고해주세요.</p>
-<h2 id="컴파일러-점검"><a class="header" href="#컴파일러-점검">컴파일러 점검</a></h2>
-<pre><code class="language-sh">rustc --version
-</code></pre>
-<p>만약 에러가 난다면, <code>PATH</code>에 Rust의 경로를 추가해주세요. (Linux 기준)</p>
-<h2 id="업데이트-및-설치-제거"><a class="header" href="#업데이트-및-설치-제거">업데이트 및 설치 제거</a></h2>
-<pre><code class="language-sh">rustup update
-rustup self uninstall
+                        <h1 id="간단한-주석comment-종류"><a class="header" href="#간단한-주석comment-종류">간단한 주석(comment) 종류</a></h1>
+<pre><code class="language-rs">// 한 줄 주석입니다.
+// 러스트에서는 여러 줄 주석이 존재하지 않습니다.
+/// 이 주석은 나중에 배울 docs 주석입니다.
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next" href="chapter_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="chapter_5.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -201,8 +190,11 @@ rustup self uninstall
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next" href="chapter_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="chapter_5.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
