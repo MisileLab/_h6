@@ -360,7 +360,7 @@ println!(&quot;{}&quot;, number);
 <p>while true는 조건을 검사해야 하는 오버헤드가 존재하기 때문에, rust에서는 loop 키워드를 제공합니다.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let a = 20;
+</span>let mut a = 20;
 loop {
     if a == 0 {break;}
     println!(&quot;{}&quot;, a);
@@ -379,7 +379,7 @@ fn another_func() {
 }</code></pre></pre>
 <h2 id="매개변수를-가진-함수"><a class="header" href="#매개변수를-가진-함수">매개변수를 가진 함수</a></h2>
 <pre><pre class="playground"><code class="language-rust">fn main() {
-    another_func(1, &quot;asd&quot;);
+    another_func(1, &quot;asd&quot;.to_string());
 }
 
 fn another_func(a: usize, b: String) {
@@ -391,8 +391,8 @@ fn another_func(a: usize, b: String) {
     println!(&quot;{}&quot;, a);
 }
 
-fn factorial(a: u128): u128 {
-    (1..=num).product()
+fn factorial(a: u128) -&gt; u128 {
+    (1..=a).product()
     // return (1..=num).product();
 }</code></pre></pre>
 
