@@ -2,7 +2,7 @@
 
 ## Hello, world
 
-```rs
+```rust
 fn main() {
     println!("Hello, world!");
 }

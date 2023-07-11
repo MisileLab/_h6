@@ -4,7 +4,7 @@
 
 Rust의 변수는 모두 unmutable합니다.
 
-```rs
+```rust
 fn main() {
     let x = 5;
     println!("The value of x is: {x}");
@@ -34,14 +34,16 @@ const MAX_POINTS: u32 = 100_000;
 Rust의 변수는 재선언할 수 있습니다.  
 이 때 재선언한 값은 그 스코프(코드블럭) 안에서만 유지됩니다.
 
-```rs
+```rust
 let x = 5;
 { // 스코프 시작
 
     let x = 20;
+    println!("The value of x is: {x}");
     // x = 20
 
 } // 스코프 끝
+println!("The value of x is: {x}");
 
 // x = 5
 ```

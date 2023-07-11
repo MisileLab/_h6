@@ -8,3 +8,8 @@
 
 - [안전한 변수](./chapter_3.md)
 - [러스트는 정적 타입 언어입니다](./chapter_4.md)
+  - [간단한 주석 종류](./chapter_4_1.md)
+- [if와 반복문](./chapter_5.md)
+- [Rust의 특별한 함수](./chapter_6.md)
+
+# Rust는 가비지 콜렉터 없이 메모리를 관리합니다

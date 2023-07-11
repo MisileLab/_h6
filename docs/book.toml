@@ -4,3 +4,6 @@ language = "ko"
 multilingual = false
 src = "src"
 title = "AnA and Rust"
+
+[output.html.playground]
+runnable = true
