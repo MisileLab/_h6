@@ -7,7 +7,7 @@
 
 
 ## 예시(규칙1)
-```rs
+```rust
 fn main() {
     let a = "asdf".to_string(); // "asdf"라는 값을 a에 넣음
     println!("{a}");
@@ -18,7 +18,7 @@ fn main() {
 ```
 
 ## 예시(규칙2)
-```rs
+```rust
 fn main() {
     { // 스코프(scope) 시작
         let a = "asdf".to_string();
