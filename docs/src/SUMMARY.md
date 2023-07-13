@@ -11,5 +11,6 @@
   - [간단한 주석 종류](./chapter_4_1.md)
 - [if와 반복문](./chapter_5.md)
 - [Rust의 특별한 함수](./chapter_6.md)
+- [소유권 개념](./chapter_7.md)
 
 # Rust가 성능 저하 없이 메모리를 관리하는 방법
