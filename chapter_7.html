@@ -174,23 +174,21 @@
 <li>변수가 스코프(scope)를 벗어나면, 데이타(값)이 해제된다.</li>
 </ol>
 <h2 id="예시규칙1"><a class="header" href="#예시규칙1">예시(규칙1)</a></h2>
-<pre><code class="language-rs">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     let a = &quot;asdf&quot;.to_string(); // &quot;asdf&quot;라는 값을 a에 넣음
     println!(&quot;{a}&quot;);
     let b = a; // &quot;asdf&quot;라는 값을 b한테줌
     println!(&quot;{b}&quot;);
     println!(&quot;{a}&quot;); // b한테 &quot;asdf&quot;라는 값을 줬기때문에 오류남
-}
-</code></pre>
+}</code></pre></pre>
 <h2 id="예시규칙2"><a class="header" href="#예시규칙2">예시(규칙2)</a></h2>
-<pre><code class="language-rs">fn main() {
+<pre><pre class="playground"><code class="language-rust">fn main() {
     { // 스코프(scope) 시작
         let a = &quot;asdf&quot;.to_string();
         println!(&quot;{a}&quot;);
     } // 스코프(scope) 끝나면서 a변수가 해제됨 
     println!(&quot;{a}&quot;) // 오류!!
-}
-</code></pre>
+}</code></pre></pre>
 
                     </main>
 
