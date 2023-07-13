@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -395,6 +395,31 @@ fn factorial(a: u128) -&gt; u128 {
     (1..=a).product()
     // return (1..=num).product();
 }</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="소유권-개념"><a class="header" href="#소유권-개념">소유권 개념</a></h1>
+<p>소유권은 한개의 값은 한개의 변수에서만 가질수 있다는 개념입니다.</p>
+<h2 id="소유권-규칙"><a class="header" href="#소유권-규칙">소유권 규칙</a></h2>
+<ol>
+<li>데이타(값)은 항상 하나의 변수를 갖는다.(2개 이상의 다른 변수에 있을수 없다.)</li>
+<li>변수가 스코프(scope)를 벗어나면, 데이타(값)이 해제된다.</li>
+</ol>
+<h2 id="예시규칙1"><a class="header" href="#예시규칙1">예시(규칙1)</a></h2>
+<pre><code class="language-rs">fn main() {
+    let a = &quot;asdf&quot;.to_string(); // &quot;asdf&quot;라는 값을 a에 넣음
+    println!(&quot;{a}&quot;);
+    let b = a; // &quot;asdf&quot;라는 값을 b한테줌
+    println!(&quot;{b}&quot;);
+    println!(&quot;{a}&quot;); // b한테 &quot;asdf&quot;라는 값을 줬기때문에 오류남
+}
+</code></pre>
+<h2 id="예시규칙2"><a class="header" href="#예시규칙2">예시(규칙2)</a></h2>
+<pre><code class="language-rs">fn main() {
+    { // 스코프(scope) 시작
+        let a = &quot;asdf&quot;.to_string();
+        println!(&quot;{a}&quot;);
+    } // 스코프(scope) 끝나면서 a변수가 해제됨 
+    println!(&quot;{a}&quot;) // 오류!!
+}
+</code></pre>
 
                     </main>
 

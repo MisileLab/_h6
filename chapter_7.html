@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>러스트는 정적 타입 언어입니다 - AnA and Rust</title>
+        <title>소유권 개념 - AnA and Rust</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html" class="active"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded "><a href="chapter_7.html" class="active"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -166,59 +166,40 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="러스트는-정적-타입-언어입니다"><a class="header" href="#러스트는-정적-타입-언어입니다">러스트는 정적 타입 언어입니다</a></h1>
-<p>정적 타입 언어의 의미는 한 변수의 타입은 선언한 후 변경되지 못한다는 의미입니다.<br />
-대부분의 경우에는 컴파일러가 타입을 추론하겠지만, 명시적으로 타입을 지정할 때가 생길 수도 있습니다.<br />
-예를 들어</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let a = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-<span class="boring">}</span></code></pre></pre>
-<p>a 변수가 무엇으로 변할지 정의하지 않으면 에러가 나기 때문에, Rust에서는 타입을 이렇게 정의합니다(타입 어노테이션).</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let a: usize = &quot;12&quot;.parse().expect(&quot;No number&quot;);
-<span class="boring">}</span></code></pre></pre>
-<p>Rust의 타입은 크게 두 가지로 나뉩니다.</p>
-<h2 id="한-개의-값을-가진-스칼라-타입"><a class="header" href="#한-개의-값을-가진-스칼라-타입">한 개의 값을 가진 스칼라 타입</a></h2>
-<h3 id="여러가지의-정수"><a class="header" href="#여러가지의-정수">여러가지의 정수</a></h3>
-<p>정수는 부호가 있는 정수(signed integer) <code>i</code>와 부호가 없는 정수(unsigned integer) <code>u</code>로 나뉩니다.
-<code>i</code>나 <code>u</code>뒤에 비트의 숫자가 붙습니다. 예: 8비트 부호 없는 정수 =&gt; <code>u8</code><br />
-Rust는 <code>8, 16, 32, 64, 128</code>비트를 지원합니다.<br />
-조금 특별해보이는 정수 타입 <code>isize</code>와 <code>usize</code>는 64비트 시스템에선 64비트 정수, 32비트 시스템에선 32비트 정수로 작동합니다.</p>
-<h3 id="두개의-부동소수점-소수"><a class="header" href="#두개의-부동소수점-소수">두개의 부동소수점 소수</a></h3>
-<p>32비트 수는 <code>f32</code>, 64비트 수는 <code>f64</code>입니다.<br />
-Rust의 기본 소수는 f64인데 이유는 f32와 f64의 속도가 비슷하며,<br />
-f64가 더 정확하기 때문입니다.</p>
-<h3 id="char와-string"><a class="header" href="#char와-string">char와 String</a></h3>
-<p>char는 한 글자를 저장하고, String은 여러 글자를 저장합니다.<br />
-char는 작은 따옴표로 표현하고, String은 큰 따옴표로 표현합니다.</p>
-<h2 id="여러-개의-값이-있는-복합-타입"><a class="header" href="#여러-개의-값이-있는-복합-타입">여러 개의 값이 있는 복합 타입</a></h2>
-<h3 id="고정된-튜플"><a class="header" href="#고정된-튜플">고정된 튜플</a></h3>
-<p>튜플의 크기는 선언할 때의 크기로 고정되어, 늘리거나 줄일 수 없습니다.<br />
-튜플은 unpack과 pack을 지원합니다.</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let a = (1, 2, 3);
-let (b, c, d) = a;
-assert_eq!(a, (1, 2, 3));
-<span class="boring">}</span></code></pre></pre>
-<h3 id="가변-길이-배열"><a class="header" href="#가변-길이-배열">가변 길이 배열</a></h3>
-<p>배열은 길이를 늘리거나 줄일 수 있습니다, 하지만 배열의 타입은 모두 같아야 합니다.</p>
-<pre><code class="language-rs">let a = [1, 2, 3, 4, 5];
+                        <h1 id="소유권-개념"><a class="header" href="#소유권-개념">소유권 개념</a></h1>
+<p>소유권은 한개의 값은 한개의 변수에서만 가질수 있다는 개념입니다.</p>
+<h2 id="소유권-규칙"><a class="header" href="#소유권-규칙">소유권 규칙</a></h2>
+<ol>
+<li>데이타(값)은 항상 하나의 변수를 갖는다.(2개 이상의 다른 변수에 있을수 없다.)</li>
+<li>변수가 스코프(scope)를 벗어나면, 데이타(값)이 해제된다.</li>
+</ol>
+<h2 id="예시규칙1"><a class="header" href="#예시규칙1">예시(규칙1)</a></h2>
+<pre><code class="language-rs">fn main() {
+    let a = &quot;asdf&quot;.to_string(); // &quot;asdf&quot;라는 값을 a에 넣음
+    println!(&quot;{a}&quot;);
+    let b = a; // &quot;asdf&quot;라는 값을 b한테줌
+    println!(&quot;{b}&quot;);
+    println!(&quot;{a}&quot;); // b한테 &quot;asdf&quot;라는 값을 줬기때문에 오류남
+}
+</code></pre>
+<h2 id="예시규칙2"><a class="header" href="#예시규칙2">예시(규칙2)</a></h2>
+<pre><code class="language-rs">fn main() {
+    { // 스코프(scope) 시작
+        let a = &quot;asdf&quot;.to_string();
+        println!(&quot;{a}&quot;);
+    } // 스코프(scope) 끝나면서 a변수가 해제됨 
+    println!(&quot;{a}&quot;) // 오류!!
+}
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter_3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="chapter_4_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -226,13 +207,10 @@ assert_eq!(a, (1, 2, 3));
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter_3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter_6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="chapter_4_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
