@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 참조(reference) 개념</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -418,6 +418,33 @@ fn factorial(a: u128) -&gt; u128 {
     } // 스코프(scope) 끝나면서 a변수가 해제됨 
     println!(&quot;{a}&quot;) // 오류!!
 }</code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="참조타입reference-type"><a class="header" href="#참조타입reference-type">참조타입(reference type)</a></h1>
+<p>참조는 값을 빌린것입니다.</p>
+<h2 id="참조타입-종류"><a class="header" href="#참조타입-종류">참조타입 종류</a></h2>
+<p>잠조타입은  수정이 불가능한 참조타입(&amp;T)과 수정가능한 참조타입(&amp;mut T)이 있습니다.</p>
+<h2 id="예시1"><a class="header" href="#예시1">예시1</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a: isize = 1;
+    let b: &amp;mut isize = &amp;mut a; // 1
+    println!(&quot;변경전: {a}&quot;);
+    *b = 2; // 2
+    println!(&quot;변경후: {a}&quot;);
+}</code></pre></pre>
+<ol>
+<li>앰퍼샌드(&amp;)를 붙임여서 b의값을 참조하였습니다.</li>
+<li>에스터리스크(*)를 붙여 값을 변경하였습니다.</li>
+</ol>
+<h2 id="예시2"><a class="header" href="#예시2">예시2</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a: isize = 1;
+    println!(&quot;변경전: {a}&quot;);
+    change(&amp;mut a, 2);
+    println!(&quot;변경후: {a}&quot;);
+}
+fn change(a: &amp;mut isize, b: isize){
+    *a = b
+}</code></pre></pre>
+<p>함수에서도 이런식으로 활용할수있습니다.</p>
 
                     </main>
 

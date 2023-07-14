@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Rust의 특별한 함수 - AnA and Rust</title>
+        <title>참조(reference) 개념 - AnA and Rust</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html" class="active"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> 참조(reference) 개념</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Rust는 JS보다 빠릅니다</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> 간단한 프로그래밍</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_2_1.html"><strong aria-hidden="true">2.1.</strong> C보다 쉬운 라이브러리 정리</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">JS 프로그래머들을 위한 Rust</li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> 안전한 변수</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> 러스트는 정적 타입 언어입니다</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_4_1.html"><strong aria-hidden="true">4.1.</strong> 간단한 주석 종류</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> if와 반복문</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> Rust의 특별한 함수</a></li><li class="chapter-item expanded affix "><li class="part-title">Rust가 성능 저하 없이 메모리를 관리하는 방법</li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> 소유권 개념</a></li><li class="chapter-item expanded "><a href="chapter_8.html" class="active"><strong aria-hidden="true">8.</strong> 참조(reference) 개념</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -166,46 +166,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="rust의-특별한-함수"><a class="header" href="#rust의-특별한-함수">Rust의 특별한 함수</a></h1>
-<p>러스트는 함수 키워드로 fn을 사용합니다.</p>
-<h2 id="기본형"><a class="header" href="#기본형">기본형</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-    another_func();
-}
-
-fn another_func() {
-    println!(&quot;AnA moment&quot;);
+                        <h1 id="참조타입reference-type"><a class="header" href="#참조타입reference-type">참조타입(reference type)</a></h1>
+<p>참조는 값을 빌린것입니다.</p>
+<h2 id="참조타입-종류"><a class="header" href="#참조타입-종류">참조타입 종류</a></h2>
+<p>잠조타입은  수정이 불가능한 참조타입(&amp;T)과 수정가능한 참조타입(&amp;mut T)이 있습니다.</p>
+<h2 id="예시1"><a class="header" href="#예시1">예시1</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a: isize = 1;
+    let b: &amp;mut isize = &amp;mut a; // 1
+    println!(&quot;변경전: {a}&quot;);
+    *b = 2; // 2
+    println!(&quot;변경후: {a}&quot;);
 }</code></pre></pre>
-<h2 id="매개변수를-가진-함수"><a class="header" href="#매개변수를-가진-함수">매개변수를 가진 함수</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-    another_func(1, &quot;asd&quot;.to_string());
+<ol>
+<li>앰퍼샌드(&amp;)를 붙임여서 b의값을 참조하였습니다.</li>
+<li>에스터리스크(*)를 붙여 값을 변경하였습니다.</li>
+</ol>
+<h2 id="예시2"><a class="header" href="#예시2">예시2</a></h2>
+<pre><pre class="playground"><code class="language-rust">fn main(){
+    let mut a: isize = 1;
+    println!(&quot;변경전: {a}&quot;);
+    change(&amp;mut a, 2);
+    println!(&quot;변경후: {a}&quot;);
 }
-
-fn another_func(a: usize, b: String) {
-    println!(&quot;{} {}&quot;, a, b);
+fn change(a: &amp;mut isize, b: isize){
+    *a = b
 }</code></pre></pre>
-<h2 id="반환값을-가진-함수"><a class="header" href="#반환값을-가진-함수">반환값을 가진 함수</a></h2>
-<pre><pre class="playground"><code class="language-rust">fn main() {
-    let a = factorial(10);
-    println!(&quot;{}&quot;, a);
-}
-
-fn factorial(a: u128) -&gt; u128 {
-    (1..=a).product()
-    // return (1..=num).product();
-}</code></pre></pre>
+<p>함수에서도 이런식으로 활용할수있습니다.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="chapter_5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_7.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="chapter_7.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -213,13 +209,10 @@ fn factorial(a: u128) -&gt; u128 {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="chapter_5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="chapter_7.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="chapter_7.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
