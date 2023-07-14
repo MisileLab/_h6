@@ -15,3 +15,5 @@
 # Rust가 성능 저하 없이 메모리를 관리하는 방법
 
 - [소유권 개념](./chapter_7.md)
+
+- [참조(reference) 개념](./chapter_8.md)
