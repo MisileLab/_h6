@@ -8,8 +8,8 @@
 ```rust
 fn main(){
     let mut a: isize = 1;
-    let b: &mut isize = &mut a; // 1
     println!("변경전: {a}");
+    let b: &mut isize = &mut a; // 1
     *b = 2; // 2
     println!("변경후: {a}");
 }
